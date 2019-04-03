@@ -1,4 +1,4 @@
-﻿using Cookbook.Data;
+﻿using Cookbook.Views;
 using System;
 
 namespace Cookbook
@@ -7,7 +7,7 @@ namespace Cookbook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Display display = new Display();            
         }
     }
 }
