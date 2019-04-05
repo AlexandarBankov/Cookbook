@@ -10,11 +10,18 @@ namespace Cookbook.Views
     public class Display
     {
         private const string closeOperationCommand = "7";
-        private CookbookController controller;
+
+        private RecipeTagController recipeTagController;
+        private TagController tagController;
+        private RecipeController recipeController;
+        private MealTypeController mealTypeController;
 
         public Display()
         {
-            controller = new CookbookController();
+            recipeTagController = new RecipeTagController();
+            tagController = new TagController();
+            recipeController = new RecipeController();
+            mealTypeController = new MealTypeController();
             HandleInput();
         }
 
@@ -65,11 +72,9 @@ namespace Cookbook.Views
             } while (input!=closeOperationCommand);
         }
 
-        
-
         private void ListAllRecipes()
         {
-            List<Recipe> recipes = controller.GetAllRecipes();
+            List<Recipe> recipes = recipeController.GetAllRecipes();
             foreach (Recipe recipe in recipes)
             {
                 PrintRecipe(recipe);
@@ -94,7 +99,7 @@ namespace Cookbook.Views
 
         private void ListAllMealTypes()
         {
-            List<MealType> mealTypes = controller.GetAllMealTypes();
+            List<MealType> mealTypes = mealTypeController.GetAllMealTypes();
             foreach (MealType mealType in mealTypes)
             {
                 Console.WriteLine("ID: " + mealType.Id);
@@ -105,7 +110,7 @@ namespace Cookbook.Views
 
         private void ListAllTags()
         {
-            List<Tag> tags = controller.GetAllTags();
+            List<Tag> tags = tagController.GetAllTags();
             foreach (Tag tag in tags)
             {
                 Console.WriteLine("ID: " + tag.Id);
@@ -164,7 +169,7 @@ namespace Cookbook.Views
             Console.WriteLine("Enter meal type name:");
             
             string name = Console.ReadLine();
-            MealType mealType = controller.GetAllMealTypes().FirstOrDefault(mt => mt.Name == name);
+            MealType mealType = mealTypeController.GetAllMealTypes().FirstOrDefault(mt => mt.Name == name);
             if (mealType == null)
             {
                 Console.WriteLine("No tags with that name were found.");
@@ -184,7 +189,7 @@ namespace Cookbook.Views
         {
             Console.WriteLine("Enter tag name:");
             string name = Console.ReadLine();
-            Tag tag = controller.GetAllTags().FirstOrDefault(t => t.Name == name);
+            Tag tag = tagController.GetAllTags().FirstOrDefault(t => t.Name == name);
             if (tag == null)
             {
                 Console.WriteLine("No tags with that name were found.");
@@ -203,7 +208,7 @@ namespace Cookbook.Views
         {
             Console.WriteLine("Enter recipe name:");
             string name = Console.ReadLine();
-            List<Recipe> recipes = controller.GetAllRecipes().Where(r=>r.Name.Contains(name)).ToList();
+            List<Recipe> recipes = recipeController.GetAllRecipes().Where(r=>r.Name.Contains(name)).ToList();
             if (recipes.Count==0)
             {
                 Console.WriteLine("No recipes with that name were found.");
@@ -252,7 +257,7 @@ namespace Cookbook.Views
                 Console.WriteLine("No such id.");
                 return;
             }
-            MealType mealType = controller.GetMealType(id);
+            MealType mealType = mealTypeController.GetMealType(id);
             if (mealType == null)
             {
                 Console.WriteLine("No such id.");
@@ -277,7 +282,7 @@ namespace Cookbook.Views
                 return;
             }
 
-            Recipe recipe = controller.GetRecipe(id);
+            Recipe recipe = recipeController.GetRecipe(id);
 
             if (recipe==null)
             {
@@ -302,7 +307,7 @@ namespace Cookbook.Views
                 Console.WriteLine("No such id.");
                 return;
             }
-            Tag tag = controller.GetTag(id);
+            Tag tag = tagController.GetTag(id);
             if (tag == null)
             {
                 Console.WriteLine("No such id.");
@@ -343,14 +348,14 @@ namespace Cookbook.Views
         {
             Console.WriteLine("Enter meal type name:");
             string input = Console.ReadLine();
-            MealType mealType = controller.GetAllMealTypes().FirstOrDefault(mt => mt.Name == input);
+            MealType mealType = mealTypeController.GetAllMealTypes().FirstOrDefault(mt => mt.Name == input);
             if (mealType!=null)
             {
                 Console.WriteLine("Meal type already exists and has id:" + mealType.Id);
             }
             else
             {
-                controller.AddMealType(new MealType() { Name = input });
+                mealTypeController.AddMealType(new MealType() { Name = input });
             }
         }
 
@@ -358,14 +363,14 @@ namespace Cookbook.Views
         {
             Console.WriteLine("Enter tag name:");
             string input = Console.ReadLine();
-            Tag tag = controller.GetAllTags().FirstOrDefault(t => t.Name == input);
+            Tag tag = tagController.GetAllTags().FirstOrDefault(t => t.Name == input);
             if (tag != null)
             {
                 Console.WriteLine("Tag already exists and has id:" + tag.Id);
             }
             else
             {
-                controller.AddTag(new Tag() { Name = input });
+                tagController.AddTag(new Tag() { Name = input });
             }
         }
 
@@ -377,11 +382,11 @@ namespace Cookbook.Views
             Console.WriteLine("Enter ingredients:");
             recipe.Ingredients = Console.ReadLine();
             Console.WriteLine("Enter preparation:");
-            recipe.Ingredients = Console.ReadLine();
+            recipe.Preparation = Console.ReadLine();
             Console.WriteLine("Enter meal type id:");
             recipe.MealTypeId = int.Parse(Console.ReadLine());
             recipe.RecipeTags = new List<RecipeTag>();
-            controller.AddRecipe(recipe);
+            recipeController.AddRecipe(recipe);
         }
 
         private void AddTagToRecipe()
@@ -390,7 +395,7 @@ namespace Cookbook.Views
             int recipeId = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter tag id:");
             int tagId = int.Parse(Console.ReadLine());
-            controller.AddRecipeTag(new RecipeTag() { RecipeId = recipeId, TagId = tagId });
+            recipeTagController.AddRecipeTag(new RecipeTag() { RecipeId = recipeId, TagId = tagId });
         }
 
         private void RemoveCommands()
@@ -425,7 +430,7 @@ namespace Cookbook.Views
             int recipeId = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter tag id:");
             int tagId = int.Parse(Console.ReadLine());
-            controller.DeleteRecipeTag(recipeId,tagId);
+            recipeTagController.DeleteRecipeTag(recipeId,tagId);
         }
 
         private void RemoveMealType()
@@ -433,21 +438,21 @@ namespace Cookbook.Views
             Console.WriteLine("!You cannot remove a meal type if it is still used in a recipe without deleting the recipe!");
             Console.WriteLine("Enter meal type id:");
             int id = int.Parse(Console.ReadLine());
-            controller.DeleteMealType(id);
+            mealTypeController.DeleteMealType(id);
         }
 
         private void RemoveTag()
         {
             Console.WriteLine("Enter tag id:");
             int id = int.Parse(Console.ReadLine());
-            controller.DeleteTag(id);
+            tagController.DeleteTag(id);
         }
 
         private void RemoveRecipe()
         {
             Console.WriteLine("Enter recipe id:");
             int id = int.Parse(Console.ReadLine());
-            controller.DeleteRecipe(id);
+            recipeController.DeleteRecipe(id);
         }
 
         private void UpdateCommands()
@@ -483,11 +488,11 @@ namespace Cookbook.Views
             Console.WriteLine("Enter ingredients:");
             recipe.Ingredients = Console.ReadLine();
             Console.WriteLine("Enter preparation:");
-            recipe.Ingredients = Console.ReadLine();
+            recipe.Preparation = Console.ReadLine();
             Console.WriteLine("Enter meal type id:");
             recipe.MealTypeId = int.Parse(Console.ReadLine());
             recipe.RecipeTags = new List<RecipeTag>();
-            controller.UpdateRecipe(recipe);
+            recipeController.UpdateRecipe(recipe);
 
         }
 
@@ -500,7 +505,7 @@ namespace Cookbook.Views
             Console.WriteLine("Enter new name:");
             string name = Console.ReadLine();
             mealType.Name = name;
-            controller.UpdateMealType(mealType);
+            mealTypeController.UpdateMealType(mealType);
         }
 
         private void UpdateTag()
@@ -512,7 +517,7 @@ namespace Cookbook.Views
             Console.WriteLine("Enter new name:");
             string name = Console.ReadLine();
             tag.Name = name;
-            controller.UpdateTag(tag);
+            tagController.UpdateTag(tag);
         }
     }
 }
