@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook", "Cookbook\Cookbook.csproj", "{077B518A-9101-407F-A508-338FC5F49D4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Tests", "..\Cookbook.Tests\Cookbook.Tests.csproj", "{F72A26CC-B055-4131-BE6A-F09B5561B5D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{077B518A-9101-407F-A508-338FC5F49D4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{077B518A-9101-407F-A508-338FC5F49D4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{077B518A-9101-407F-A508-338FC5F49D4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F72A26CC-B055-4131-BE6A-F09B5561B5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F72A26CC-B055-4131-BE6A-F09B5561B5D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F72A26CC-B055-4131-BE6A-F09B5561B5D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F72A26CC-B055-4131-BE6A-F09B5561B5D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

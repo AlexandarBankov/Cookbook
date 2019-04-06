@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Cookbook.Controllers
 {
-    class TagController
+    public class TagController
     {
         private CookbookContext context;
         public TagController()

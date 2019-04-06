@@ -52,7 +52,7 @@ namespace Cookbook.Views
                         ListAllCommands();
                         break;
                     case "2":
-                        SearchCommands();
+                        GetByCommands();
                         break;
                     case "3":
                         GetByIdCOmmands();
@@ -142,7 +142,7 @@ namespace Cookbook.Views
             }
         }
 
-        private void SearchCommands()
+        private void GetByCommands()
         {
             Console.WriteLine("1.List all recipes with a given meal type.");
             Console.WriteLine("2.List all recipes with a given tag.");
@@ -157,7 +157,7 @@ namespace Cookbook.Views
                     GetAllRecipesWithTag();
                     break;
                 case "3":
-                    SearchRecipeByName();
+                    GetRecipeByName();
                     break;
                 default:
                     break;
@@ -204,11 +204,11 @@ namespace Cookbook.Views
             }
         }
 
-        private void SearchRecipeByName()
+        private void GetRecipeByName()
         {
             Console.WriteLine("Enter recipe name:");
             string name = Console.ReadLine();
-            List<Recipe> recipes = recipeController.GetAllRecipes().Where(r=>r.Name.Contains(name)).ToList();
+            List<Recipe> recipes = recipeController.GetRecipeByName(name);
             if (recipes.Count==0)
             {
                 Console.WriteLine("No recipes with that name were found.");

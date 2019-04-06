@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Cookbook.Data
@@ -18,10 +19,10 @@ namespace Cookbook.Data
 
         }
 
-        public DbSet<MealType> MealTypes { get; set; }
-        public DbSet<Recipe> Recipes { get; set; }
-        public DbSet<RecipeTag> RecipesTags { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<MealType> MealTypes { get; set; }
+        public virtual DbSet<Recipe> Recipes { get; set; }
+        public virtual DbSet<RecipeTag> RecipesTags { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

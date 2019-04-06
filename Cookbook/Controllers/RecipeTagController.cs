@@ -1,5 +1,6 @@
 ﻿using Cookbook.Data;
 using Cookbook.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace Cookbook.Controllers
 {
-    class RecipeTagController
+    public class RecipeTagController
     {
         private CookbookContext context;
 
@@ -29,10 +30,14 @@ namespace Cookbook.Controllers
 
         public void DeleteRecipeTag(int RecipeId,int TagId)
         {
-            var RecipeTag = context.RecipesTags.Where(rt => rt.RecipeId == RecipeId && rt.TagId==TagId);
-            context.RecipesTags.RemoveRange(RecipeTag);
+            var recipeTags = context.RecipesTags.Where(rt => rt.RecipeId == RecipeId && rt.TagId==TagId);
+            context.RecipesTags.RemoveRange(recipeTags);
             context.SaveChanges();
         }
 
+        public List<RecipeTag> GetAllRecipeTags()
+        {
+            return context.RecipesTags.ToList();
+        }
     }
 }

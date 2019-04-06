@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Cookbook.Controllers
 {
-    class MealTypeController
+    public class MealTypeController
     {
         private CookbookContext context;
 

@@ -1,5 +1,6 @@
 ﻿using Cookbook.Data;
 using Cookbook.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace Cookbook.Controllers
 {
-    class RecipeController
+    public class RecipeController
     {
         private CookbookContext context;
 
@@ -29,6 +30,11 @@ namespace Cookbook.Controllers
         public Recipe GetRecipe(int id)
         {
             return context.Recipes.FirstOrDefault(r => r.Id == id);
+        }
+
+        public List<Recipe> GetRecipeByName(string name)
+        {
+            return context.Recipes.Where(r => r.Name == name).ToList();
         }
 
         public void AddRecipe(Recipe recipe)
