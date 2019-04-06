@@ -41,7 +41,11 @@ namespace Cookbook.Controllers
         /// <returns>all recipes from the database</returns>
         public List<Recipe> GetAllRecipes()
         {
-            return context.Recipes.ToList();
+            return context.Recipes
+                    .Include(r => r.MealType)
+                    .Include(r => r.RecipeTags)
+                        .ThenInclude(r => r.Tag)
+                    .ToList();
         }
 
         /// <summary>
@@ -51,7 +55,11 @@ namespace Cookbook.Controllers
         /// <returns>the recipe with the wanted Id</returns>
         public Recipe GetRecipe(int id)
         {
-            return context.Recipes.FirstOrDefault(r => r.Id == id);
+            return context.Recipes
+                    .Include(r => r.MealType)
+                    .Include(r => r.RecipeTags)
+                        .ThenInclude(r => r.Tag)
+                    .FirstOrDefault(r => r.Id == id);
         }
 
         /// <summary>
@@ -61,7 +69,12 @@ namespace Cookbook.Controllers
         /// <returns>the recipe with the wanted name</returns>
         public List<Recipe> GetRecipeByName(string name)
         {
-            return context.Recipes.Where(r => r.Name == name).ToList();
+            return context.Recipes
+                    .Include(r => r.MealType)
+                    .Include(r => r.RecipeTags)
+                        .ThenInclude(r => r.Tag)
+                    .Where(r => r.Name == name)
+                    .ToList();
         }
 
         /// <summary>

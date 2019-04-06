@@ -1,5 +1,6 @@
 ﻿using Cookbook.Data;
 using Cookbook.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,11 @@ namespace Cookbook.Controllers
         /// <returns>all of the tags from the database</returns>
         public List<Tag> GetAllTags()
         {
-            return context.Tags.ToList();
+            return context.Tags
+                .Include(t => t.RecipeTags)
+                    .ThenInclude(rt => rt.Recipe)
+                        .ThenInclude(r=>r.MealType)
+                .ToList();
         }
 
         /// <summary>

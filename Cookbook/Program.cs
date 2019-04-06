@@ -7,7 +7,7 @@ namespace Cookbook
     {
         static void Main(string[] args)
         {
-            Display display = new Display();            
+            Display display = new Display(new Data.CookbookContext());            
         }
     }
 }

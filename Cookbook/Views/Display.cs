@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Cookbook.Data;
 
 namespace Cookbook.Views
 {
@@ -19,12 +20,12 @@ namespace Cookbook.Views
         private RecipeController recipeController;
         private MealTypeController mealTypeController;
 
-        public Display()
+        public Display(CookbookContext context)
         {
-            recipeTagController = new RecipeTagController();
-            tagController = new TagController();
-            recipeController = new RecipeController();
-            mealTypeController = new MealTypeController();
+            recipeTagController = new RecipeTagController(context);
+            tagController = new TagController(context);
+            recipeController = new RecipeController(context);
+            mealTypeController = new MealTypeController(context);
             HandleInput();
         }
 
