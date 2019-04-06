@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Cookbook.Data.Models
 {
+    /// <summary>
+    /// The struckture of the Tags table in the database. 
+    /// </summary>
     public class Tag
     {
         public int Id { get; set; }

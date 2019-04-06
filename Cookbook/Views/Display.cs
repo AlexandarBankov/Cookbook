@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace Cookbook.Views
 {
+    /// <summary>
+    /// User interface.
+    /// </summary>
     public class Display
     {
         private const string closeOperationCommand = "7";

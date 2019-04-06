@@ -7,6 +7,9 @@ using System.Text;
 
 namespace Cookbook.Data
 {
+    /// <summary>
+    /// Context to connect to the database.
+    /// </summary>
     public class CookbookContext:DbContext
     {
         public CookbookContext()
@@ -34,6 +37,10 @@ namespace Cookbook.Data
             base.OnConfiguring(optionsBuilder);
         }
 
+        /// <summary>
+        /// Maps the relations between the tables.
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RecipeTag>().HasKey(rt=>new {rt.RecipeId,rt.TagId });
